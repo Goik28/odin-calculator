@@ -1,0 +1,80 @@
+body{
+    display: flex;    
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    background-color: black;
+    color: whitesmoke;
+}
+
+.main{
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    border: 5px solid #ffff;
+    border-radius: 30px;
+}
+
+h1,
+h3,
+h4{
+    text-align: center;
+}
+
+h4{
+    margin: 0px;
+    margin-top: -20px;
+}
+
+.log{
+    padding: 15px;
+    margin: 15px;
+    border: 5px solid #ffff;
+}
+
+.visor{
+    flex: 1 1 0;
+    text-align: right;
+    font-size: xx-large;
+    font-weight: 700;
+    padding: 15px;
+    margin: 15px;
+    border: 5px solid #ffff;
+}
+
+.buttons{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex: 1 1 0;    
+    margin: 15px;
+    padding: 5px;
+    border: 5px solid #ffff;
+}
+
+button{
+    font-size: larger;
+    font-weight: 700;
+    height: 50px;
+    width: 80px;
+    margin: 5px;
+}
+
+.operators,
+#bkspc{
+    background-color: lightsteelblue;
+}
+
+#clear{
+    background-color: salmon;
+}
+
+ol{
+    list-style: none;
+    padding-left: 0;
+}
+
+li{
+    padding: 5px;
+    text-align: center;
+}
