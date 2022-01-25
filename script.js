@@ -2,6 +2,8 @@ let num1 = 0;
 let operator = "";
 let num2 = 0;
 let result = 0;
+let clearVisor = true;
+let chain = false;
 
 const numbers = document.querySelectorAll(".numbers");
 const operators = document.querySelectorAll(".operators");
@@ -11,8 +13,9 @@ const equal = document.getElementById("equal");
 let visor = document.getElementById("visor");
 
 function getNumber(e) {
-    if (visor.textContent == "0" || !parseInt(visor.textContent)) {
+    if (clearVisor) {
         visor.textContent = "";
+        clearVisor = false;
     }
     if (visor.textContent.length < 8) {
         if (e.currentTarget.textContent == "." && visor.textContent.indexOf(".") != -1) {
@@ -25,32 +28,35 @@ function getNumber(e) {
 function backspace() {
     visor.textContent = visor.textContent.substring(0, visor.textContent.length - 1);
     if (visor.textContent == "") {
+        clearVisor = true;
         visor.textContent = "0";
     }
 }
 
-function clearVisor() {
+function clearAll() {
     num1 = 0;
     operator = "";
     num2 = 0;
     result = 0;
+    clearVisor = true;
     visor.textContent = "0";
 }
 
-function getOperation(e) {
-    if (num1 == 0) {
+function getOperation(e) {    
+    if (!chain){
         num1 = parseInt(visor.textContent);
         operator = e.currentTarget.id;
         if (operator == "sqr") {
             equals();
             return;
         }
-        visor.textContent = "0";
-    } else {
-        num2 = parseInt(visor.textContent);
+        clearVisor = true;
+        chain = true;
+    }else {
         equals();
-        operator = e.currentTarget.id;
+        getOperation(e);
     }
+
 }
 
 function equals(e) {
@@ -79,13 +85,13 @@ function equals(e) {
             break;
     }
     if (result > 99999999) {
+        clearAll();
         visor.textContent = "overflow";
-        num1 = 0;
-        num2 = 0;
-        return;    
+        return;
     }
-    visor.textContent = result.toString().substring(0,8);
-    num1 = result;
+    visor.textContent = result.toString().substring(0, 8);
+    chain = false;
+    clearVisor = true;
 }
 
 numbers.forEach(element => {
@@ -94,7 +100,7 @@ numbers.forEach(element => {
 
 bkspc.addEventListener("click", backspace);
 
-clear.addEventListener("click", clearVisor);
+clear.addEventListener("click", clearAll);
 
 equal.addEventListener("click", equals);
 
