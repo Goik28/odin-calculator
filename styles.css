@@ -30,6 +30,9 @@ h4{
     padding: 15px;
     margin: 15px;
     border: 5px solid #ffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .visor{
@@ -64,17 +67,28 @@ button{
 #bkspc{
     background-color: lightsteelblue;
 }
+#equal{
+    background-color: rgb(182, 241, 182);
+}
 
 #clear{
     background-color: salmon;
 }
 
 ol{
-    list-style: none;
+    list-style: upper-roman; 
     padding-left: 0;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 li{
     padding: 5px;
     text-align: center;
+}
+
+#li1{
+    font-size: larger;
+    font-weight: 700;
+    margin-top: 10px;
 }
