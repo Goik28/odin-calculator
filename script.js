@@ -1,10 +1,11 @@
-let num1 = 0;
+let num1 = undefined;
 let operator = "";
-let num2 = 0;
+let num2 = undefined;
 let result = 0;
 let clearVisor = true;
 let chain = false;
 let doubleOperator = false;
+let doubleEqual = false;
 
 const numbers = document.querySelectorAll(".numbers");
 const operators = document.querySelectorAll(".operators");
@@ -26,6 +27,7 @@ function getNumber(e) {
         visor.textContent = visor.textContent + e.currentTarget.textContent;
     }
     doubleOperator = false;
+    doubleEqual = false;
 }
 
 function backspace() {
@@ -42,13 +44,14 @@ function backspace() {
 }
 
 function clearAll() {
-    num1 = 0;
+    num1 = undefined;
     operator = "";
-    num2 = 0;
+    num2 = undefined;
     result = 0;
     clearVisor = true;
     chain = false;
     doubleOperator = false;
+    doubleEqual = false;
     clearLog();
     visor.textContent = "0";
 }
@@ -66,14 +69,19 @@ function getOperation(e) {
         chain = true;
     } else if (doubleOperator) {
         operator = e.currentTarget.id;
+        if (operator == "sqr") {
+            num1 = parseInt(visor.textContent);
+            equals();
+            return;
+        }
     } else {
         equals();
+        getOperation(e);
     }
+    doubleEqual = false;
 }
 
-function equals(e) {
-    num2 = parseInt(visor.textContent);
-    doubleOperator = false;
+function operate() {
     switch (operator) {
         case "pow":
             result = num1 ** num2;
@@ -100,17 +108,29 @@ function equals(e) {
             logOperation(num1, num2, "+", result);
             break;
         default:
-            num2 = 0;
-            return;
-            break;
+            return ("return");
     }
-    if (result > 99999999) {
+}
+
+function equals(e) {
+    if (!doubleEqual) {
+        num2 = parseInt(visor.textContent);
+    } else {
+        num1 = result;
+    }    
+    doubleOperator = false;
+    if (operate() == "return") {
+        return;
+    }
+    if (result > 99999999 || result == Infinity || result == -Infinity) {
         clearAll();
         visor.textContent = "overflow";
         return;
     }
     visor.textContent = result.toString().substring(0, 8);
     chain = false;
+    doubleOperator = false;
+    doubleEqual = true;
     clearVisor = true;
 }
 
