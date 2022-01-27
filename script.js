@@ -149,7 +149,36 @@ function clearLog() {
     }
 }
 
-//create listeners for keyboard
+function keyPress(e) {
+    if (e.key >= 0 && e.key <= 9) {
+     document.getElementById(e.key).click();   
+    }
+    if (e.key === '.'){
+        document.getElementById("dot").click();   
+    }
+    if (e.key === '/'){
+        document.getElementById("div").click(); 
+    }
+    if (e.key === '*'){
+        document.getElementById("mult").click(); 
+    }
+    if (e.key === '-'){
+        document.getElementById("min").click(); 
+    }
+    if (e.key === '+'){
+        document.getElementById("plus").click(); 
+    }
+    if (e.key === '=' || e.key === 'Enter'){
+        document.getElementById("equal").click();   
+    }
+    if (e.key === 'Backspace'){
+        document.getElementById("bkspc").click();   
+    }
+    if (e.key === 'Escape' || e.key === 'Delete'){
+        document.getElementById("clear").click();   
+    }
+  }
+
 
 numbers.forEach(element => {
     element.addEventListener("click", getNumber);
@@ -164,3 +193,5 @@ equal.addEventListener("click", equals);
 operators.forEach(element => {
     element.addEventListener("click", getOperation);
 });
+
+window.addEventListener('keydown', keyPress);
